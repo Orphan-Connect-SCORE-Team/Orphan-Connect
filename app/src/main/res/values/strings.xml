@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Orphan Connect</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">User</string>
+    <string name="nav_header_subtitle">test@test.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="mission">Our mission\n</string>
+    <string name="whyOrphanConnect">Why Orphan Connect?\n</string>
+    <string name="title_activity_button_nav">Button_nav</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="my_account">My Account</string>
+    <string name="my_donation">My Donation</string>
+    <string name="map">Map</string>
+    <string name="title_activity_my__donation">My_Donation</string>
+    <string name="pop_text">You are making recurring donation $  </string>
+</resources>

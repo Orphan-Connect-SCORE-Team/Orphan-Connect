@@ -1,0 +1,250 @@
+package com.example.score_coding_demo;
+
+import android.content.Intent;
+import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.view.menu.MenuAdapter;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class MeetChildren extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+    private boolean recurring = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_meet_childern);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        ImageView boy = findViewById(R.id.boy);
+        ImageView girl = findViewById(R.id.girl);
+
+        girl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onChildClicked(v);
+            }
+        });
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        BottomNavigationView buttonNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        buttonNavigationView.getMenu().setGroupCheckable(0, false, true);
+        buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_home:
+                        startActivity(new Intent(MeetChildren.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    case R.id.navigation_account:
+                        return true;
+                    case R.id.navigation_donation:
+                        startActivity(new Intent(MeetChildren.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                        return true;
+                    case R.id.navigation_map:
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+
+        } else if (id == R.id.nav_setting) {
+
+        } else if (id == R.id.nav_about) {
+
+        } else if (id == R.id.nav_log_out) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    public void onChildClicked(View view) {
+        // inflate the layout of the popup window
+        final LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.popwindow, null);
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        final Spinner spinner = (Spinner) popupView.findViewById(R.id.donation_frequency);
+        spinner.setVisibility(View.INVISIBLE);
+
+        // create the popup window
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        Switch recur = (Switch) popupView.findViewById(R.id.donation_switch);
+        recur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (recurring) {
+                    ((TextView) popupView.findViewById(R.id.donation_type)).setText("Type: One-time");
+                    spinner.setVisibility(View.INVISIBLE);
+                } else {
+                    ((TextView) popupView.findViewById(R.id.donation_type)).setText("Type: Recurring");
+                    spinner.setVisibility(View.VISIBLE);
+
+                }
+                recurring = !recurring;
+            }
+        });
+        List<String> frequency = new LinkedList<>();
+        frequency.add("Every week");
+        frequency.add("Every month");
+        frequency.add("Every year");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, frequency);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                ((TextView) spinner.getSelectedView()).setTextColor(Color.WHITE);
+            }
+        });
+
+        final View vi = view;
+        ((Button) popupView.findViewById(R.id.donate)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDonateClicked(vi);
+                popupWindow.dismiss();
+            }
+        });
+
+        ((Button) popupView.findViewById(R.id.donate_cancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    public void onDonateClicked(View view) {
+        // inflate the layout of the popup window
+        final LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.confirm, null);
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        // create the popup window
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        final View vi = view;
+        ((Button) popupView.findViewById(R.id.confirm_ok)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onConfirmClicked(vi);
+                popupWindow.dismiss();
+            }
+        });
+        ((Button) popupView.findViewById(R.id.confirm_cancel)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+    }
+
+    public void onConfirmClicked(View view) {
+        // inflate the layout of the popup window
+        final LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.thankyou, null);
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        // create the popup window
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.setElevation(20);
+        }
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        final View vi = view;
+        ((Button) popupView.findViewById(R.id.thankyou_ok)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+    }
+}
