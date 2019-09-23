@@ -1,4 +1,4 @@
-package com.example.score_coding_demo;
+package edu.gatech.score.orphanconnect;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,11 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;

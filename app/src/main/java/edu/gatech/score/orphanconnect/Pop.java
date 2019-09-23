@@ -1,23 +1,18 @@
-package com.example.score_coding_demo;
+package edu.gatech.score.orphanconnect;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
-public class Pop  extends Activity {
+public class Pop extends Activity {
 
     @Override
-    protected void onCreate (Bundle saveInstanceState) {
+    protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
 
         setContentView(R.layout.popwindow);
@@ -28,7 +23,7 @@ public class Pop  extends Activity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width * .8), (int)(height * 0.8));
+        getWindow().setLayout((int) (width * .8), (int) (height * 0.8));
 
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;

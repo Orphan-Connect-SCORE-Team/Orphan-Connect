@@ -75,5 +75,4 @@
         app:srcCompat="@mipmap/donate" />
 
 
-
 </android.support.constraint.ConstraintLayout>

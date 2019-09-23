@@ -1,8 +1,8 @@
-package com.example.score_coding_demo;
+package edu.gatech.score.orphanconnect;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
