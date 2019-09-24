@@ -25,17 +25,17 @@ public class My_Donation extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my__donation);
-        ((ImageView) findViewById(R.id.history_mary)).setVisibility(MainActivity.oldMary);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        findViewById(R.id.history_mary).setVisibility(MainActivity.oldMary);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        BottomNavigationView buttonNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView buttonNavigationView = findViewById(R.id.navigation);
         buttonNavigationView.setSelectedItemId(R.id.navigation_donation);
         buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -65,7 +65,7 @@ public class My_Donation extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -89,12 +89,12 @@ public class My_Donation extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    public void onDonationClicked(View view) {
+    private void onDonationClicked(View view) {
 
         // inflate the layout of the popup window
         final LayoutInflater inflater = (LayoutInflater)
@@ -140,8 +140,8 @@ public class My_Donation extends AppCompatActivity
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        Button submit = (Button) popupView.findViewById(R.id.change_amount_submit);
-        Button cancel = (Button) popupView.findViewById(R.id.change_amount_cancel);
+        Button submit = popupView.findViewById(R.id.change_amount_submit);
+        Button cancel = popupView.findViewById(R.id.change_amount_cancel);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,7 +157,7 @@ public class My_Donation extends AppCompatActivity
         });
     }
 
-    public void onSubmitClicked(View view) {
+    private void onSubmitClicked(View view) {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -171,12 +171,12 @@ public class My_Donation extends AppCompatActivity
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        Button submit = (Button) popupView.findViewById(R.id.confirm2_ok);
-        Button cancel = (Button) popupView.findViewById(R.id.confirm2_cancel);
+        Button submit = popupView.findViewById(R.id.confirm2_ok);
+        Button cancel = popupView.findViewById(R.id.confirm2_cancel);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView mary = (ImageView) findViewById(R.id.history_mary);
+                ImageView mary = findViewById(R.id.history_mary);
                 mary.setVisibility(MainActivity.oldMary = View.INVISIBLE);
                 popupWindow.dismiss();
             }

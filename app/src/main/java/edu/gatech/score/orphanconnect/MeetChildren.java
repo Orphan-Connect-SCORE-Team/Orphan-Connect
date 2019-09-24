@@ -27,9 +27,9 @@ public class MeetChildren extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meet_childern);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -45,9 +45,9 @@ public class MeetChildren extends AppCompatActivity
             }
         });
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        BottomNavigationView buttonNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView buttonNavigationView = findViewById(R.id.navigation);
         buttonNavigationView.getMenu().setGroupCheckable(0, false, true);
         buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -70,7 +70,7 @@ public class MeetChildren extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -94,7 +94,7 @@ public class MeetChildren extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -106,7 +106,7 @@ public class MeetChildren extends AppCompatActivity
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popwindow, null);
         popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
-        final Spinner spinner = (Spinner) popupView.findViewById(R.id.donation_frequency);
+        final Spinner spinner = popupView.findViewById(R.id.donation_frequency);
         spinner.setVisibility(View.INVISIBLE);
 
         // create the popup window
@@ -118,7 +118,7 @@ public class MeetChildren extends AppCompatActivity
         // show the popup window
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        Switch recur = (Switch) popupView.findViewById(R.id.donation_switch);
+        Switch recur = popupView.findViewById(R.id.donation_switch);
         recur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,7 +148,7 @@ public class MeetChildren extends AppCompatActivity
         });
 
         final View vi = view;
-        ((Button) popupView.findViewById(R.id.donate)).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.donate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onDonateClicked(vi);
@@ -156,7 +156,7 @@ public class MeetChildren extends AppCompatActivity
             }
         });
 
-        ((Button) popupView.findViewById(R.id.donate_cancel)).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.donate_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
@@ -180,14 +180,14 @@ public class MeetChildren extends AppCompatActivity
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         final View vi = view;
-        ((Button) popupView.findViewById(R.id.confirm_ok)).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.confirm_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onConfirmClicked(vi);
                 popupWindow.dismiss();
             }
         });
-        ((Button) popupView.findViewById(R.id.confirm_cancel)).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.confirm_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
@@ -211,7 +211,7 @@ public class MeetChildren extends AppCompatActivity
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         final View vi = view;
-        ((Button) popupView.findViewById(R.id.thankyou_ok)).setOnClickListener(new View.OnClickListener() {
+        popupView.findViewById(R.id.thankyou_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
