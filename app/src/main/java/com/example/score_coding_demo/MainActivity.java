@@ -14,10 +14,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 
+import android.net.ConnectivityManager;
+import android.content.Context;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static int oldMary = View.VISIBLE;
+
+    public static String dataInputTest = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +98,4 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }
