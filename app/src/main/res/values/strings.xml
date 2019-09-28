@@ -17,4 +17,16 @@
     <string name="map">Map</string>
     <string name="title_activity_my__donation">My_Donation</string>
     <string name="pop_text">You are making recurring donation $  </string>
+
+    <!-- Strings related to login and signUp-->
+    <string name="prompt_name">Name</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_conf_password">Confirm password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_return_sign_in">Return to Sign In</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="Sent_Vertification">Sent Vertification</string>
+    <string name="resend_vertification">resend vertification</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
