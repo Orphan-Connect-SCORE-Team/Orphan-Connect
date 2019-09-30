@@ -22,4 +22,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="textBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">#FEDE0F</item>
+        <item name="boxStrokeWidth">2dp</item>
+    </style>
+
 </resources>
