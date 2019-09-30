@@ -3,6 +3,7 @@ package edu.gatech.score.orphanconnect;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
