@@ -21,11 +21,10 @@ class AppModule(private val application: Application) {
         return application
     }
 
-    // TODO (2019-10-15 Amaan): Implement SharedPreferences
-//    @Provides
-//    @Singleton
-//    fun provideScoreSharedPreferences(): ScoreSharedPreferences {
-//        return ScoreSharedPreferencesImpl(application)
-//    }
+    @Provides
+    @Singleton
+    fun provideScoreSharedPreferences(): ScoreSharedPreferences {
+        return ScoreSharedPreferencesImpl(application)
+    }
 
 }
