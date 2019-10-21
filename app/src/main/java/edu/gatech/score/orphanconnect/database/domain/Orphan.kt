@@ -9,8 +9,14 @@ class Orphan(
         val id: String,
         val firstName: String,
         val lastName: String,
-        val lattitude: Double,
-        val longitude: Double,
         val age: Int,
-        val description: String
+        val sex: Sex,
+        val description: String?,
+        val photoUrl: String?,
+        val refugeeCamp: String?,
+        val village: String?,
+        val LGA: String?,
+        val county: String?,
+        val motherName: String?,
+        val fatherName: String?
 )
