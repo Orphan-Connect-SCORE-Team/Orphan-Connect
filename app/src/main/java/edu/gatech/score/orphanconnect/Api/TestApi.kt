@@ -9,6 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
 
 class TestApi {
+
     private val api: Api?
     final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
 
@@ -21,63 +22,60 @@ class TestApi {
         this.api = retrofit.create(Api::class.java)
     }
 
-    fun getUser(email: String): User?{
-        var retUser: User? = null
+    //Note: JvmOverloads ensures kotlin optional parameters work in java files, remove when kotlin fixes this issue in the future
+
+    //Signup with name
+    @JvmOverloads fun signup(email: String, password: String, first: String? = "", last: String? = ""): HTTPMessage? {
         try {
-            val request = api!!.getUser(email)
-            request.enqueue(object: Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
+            val signup = api!!.signup(email, password, first, last)
+            System.out.println("Signup began")
+            signup.enqueue(object: Callback<HTTPMessage> {
+                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
                     System.out.println("Failure "  + t.message)
                 }
 
-                override fun onResponse(call: Call<User>, response: Response<User>) {
+                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
                     if (response.isSuccessful) {
-                        retUser = response.body()
-                        System.out.println("Success " + retUser!!.password)
+                        System.out.println("Succeeded")
+                        System.out.println(response.body()!!.message)
                     } else {
-                        System.out.println("Empty response")
+                        System.out.println("Unsuccessful")
+                        System.out.println(response.message())
                     }
                 }
             })
         } catch (e: Exception) {
-            System.out.println("Exception occurred " + e.toString())
+            System.out.println("Exception occurred: " + e.toString());
         }
 
-        return retUser
+        return null
     }
 
-    fun signup(email: String, password: String): User? {
+    //Create orphan
+    @JvmOverloads fun createOrphan(firstName: String, lastName: String, age: Int, sex: String? = "",
+                                   description: String? = "", photoUrl: String? = "", refugeeCamp: String? = "",
+                                   village: String? = "", LGA: String? = "", country: String? = "",
+                                   motherName: String? = "", fatherName: String? = ""): HTTPMessage? {
         try {
-            var userExists = false
-            val request = api!!.getUser(email)
-            request.enqueue(object: Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
+            val orphan = api!!.createOrphan(firstName, lastName, age, sex, description, photoUrl, refugeeCamp, village, LGA, country, motherName, fatherName)
+            System.out.println("Orphan Creation Began")
+            orphan.enqueue(object: Callback<HTTPMessage> {
+                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
                     System.out.println("Failure "  + t.message)
                 }
 
-                override fun onResponse(call: Call<User>, response: Response<User>) {
+                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
                     if (response.isSuccessful) {
-                        userExists = true
+                        System.out.println("Succeeded")
+                        System.out.println(response.body()!!.message)
+                    } else {
+                        System.out.println("Unsuccessful")
+                        System.out.println(response.message())
                     }
                 }
             })
-
-            if (!userExists) {
-                val signup = api!!.signup(email, password)
-                signup.enqueue(object: Callback<User> {
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        System.out.println("Failure "  + t.message)
-                    }
-
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        if (response.isSuccessful) {
-                            System.out.println("Succeeded")
-                        }
-                    }
-                })
-            }
         } catch (e: Exception) {
-            System.out.println("Exception occurred " + e.toString())
+            System.out.println("Exception occurred: " + e.toString());
         }
 
         return null
