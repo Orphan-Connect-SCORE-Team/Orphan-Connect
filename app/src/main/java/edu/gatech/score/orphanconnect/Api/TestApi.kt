@@ -24,6 +24,32 @@ class TestApi {
 
     //Note: JvmOverloads ensures kotlin optional parameters work in java files, remove when kotlin fixes this issue in the future
 
+    fun getUser(email: String): User? {
+        try {
+            val user = api!!.getUser(email)
+            System.out.println("Login began")
+            user.enqueue(object: Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    System.out.println("Failure "  + t.message)
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        System.out.println("Succeeded")
+                        System.out.println(response.body()!!.password)
+                    } else {
+                        System.out.println("Unsuccessful")
+                        System.out.println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            System.out.println("Exception occurred: " + e.toString());
+        }
+
+        return null
+    }
+
     //Signup with name
     @JvmOverloads fun signup(email: String, password: String, first: String? = "", last: String? = ""): HTTPMessage? {
         try {

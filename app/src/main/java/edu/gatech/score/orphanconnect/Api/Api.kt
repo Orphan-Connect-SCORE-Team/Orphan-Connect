@@ -5,7 +5,7 @@ import retrofit2.http.*
 import com.example.score_coding_demo.HTTPMessage;
 
 interface Api {
-    @GET("Login.php")
+    @GET("/api/users/Read.php")
     fun getUser(@Query("email") email: String): Call<User>
     @POST("/api/users/CreateUser.php")
     fun signup(@Query("email") email: String,
