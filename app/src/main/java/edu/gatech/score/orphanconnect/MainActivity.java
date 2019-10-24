@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         });
 
         TestApi api = new TestApi();
-        api.getUser("hello@gmail.com");
+        api.getUsers();
     }
 
     @Override

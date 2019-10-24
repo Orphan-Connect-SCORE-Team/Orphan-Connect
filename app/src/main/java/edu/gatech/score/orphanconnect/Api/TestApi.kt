@@ -25,9 +25,11 @@ class TestApi {
     //Note: JvmOverloads ensures kotlin optional parameters work in java files, remove when kotlin fixes this issue in the future
 
     fun getUser(email: String): User? {
+        var retVal: User? = null
         try {
             val user = api!!.getUser(email)
             System.out.println("Login began")
+
             user.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     System.out.println("Failure "  + t.message)
@@ -36,7 +38,7 @@ class TestApi {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         System.out.println("Succeeded")
-                        System.out.println(response.body()!!.password)
+                        retVal = response.body()
                     } else {
                         System.out.println("Unsuccessful")
                         System.out.println(response.message())
@@ -47,7 +49,36 @@ class TestApi {
             System.out.println("Exception occurred: " + e.toString());
         }
 
-        return null
+        return retVal
+    }
+
+    fun getUsers(): List<User>? {
+        var retVal: List<User>? = null
+        try {
+            val users = api!!.getUsers()
+            System.out.println("Getting users")
+
+            users.enqueue(object: Callback<List<User>> {
+                override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                    System.out.println("Failure "  + t.message)
+                }
+
+                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                    if (response.isSuccessful) {
+                        System.out.println("Succeeded")
+                        System.out.println("Total users: " + response.body()!!.count())
+                        retVal = response.body()
+                    } else {
+                        System.out.println("Unsuccessful")
+                        System.out.println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            System.out.println("getUsers exception occurred: " + e.toString())
+        }
+
+        return retVal
     }
 
     //Signup with name
