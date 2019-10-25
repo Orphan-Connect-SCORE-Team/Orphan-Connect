@@ -1,5 +1,6 @@
 package com.example.score_coding_demo
 
+import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Call
@@ -7,10 +8,12 @@ import retrofit2.Callback
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class TestApi {
 
-    private val api: Api?
+    public val api: Api?
     final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
 
     init {
@@ -23,9 +26,8 @@ class TestApi {
     }
 
     //Note: JvmOverloads ensures kotlin optional parameters work in java files, remove when kotlin fixes this issue in the future
-
-    fun getUser(email: String): User? {
-        var retVal: User? = null
+/*
+    fun getUser(email: String) {
         try {
             val user = api!!.getUser(email)
             System.out.println("Login began")
@@ -38,7 +40,7 @@ class TestApi {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         System.out.println("Succeeded")
-                        retVal = response.body()
+                        //Handle login through response.body!!
                     } else {
                         System.out.println("Unsuccessful")
                         System.out.println(response.message())
@@ -48,10 +50,8 @@ class TestApi {
         } catch (e: Exception) {
             System.out.println("Exception occurred: " + e.toString());
         }
-
-        return retVal
     }
-
+*/
     fun getUsers(): List<User>? {
         var retVal: List<User>? = null
         try {
@@ -67,7 +67,7 @@ class TestApi {
                     if (response.isSuccessful) {
                         System.out.println("Succeeded")
                         System.out.println("Total users: " + response.body()!!.count())
-                        retVal = response.body()
+                        retVal = response.body()!!
                     } else {
                         System.out.println("Unsuccessful")
                         System.out.println(response.message())
