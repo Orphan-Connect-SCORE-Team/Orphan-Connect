@@ -69,7 +69,7 @@
         app:srcCompat="@mipmap/line" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/make_donation"
         android:layout_width="381dp"
         android:layout_height="230dp"
         android:layout_marginBottom="16dp"

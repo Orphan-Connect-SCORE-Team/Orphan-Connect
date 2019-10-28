@@ -31,4 +31,9 @@
     <string name="Sent_Vertification">Sent Vertification</string>
     <string name="resend_vertification">resend vertification</string>
     <string name="sign_up">Sign Up</string>
+
+    <!-- Strings related to Database-->
+    <string name="hint_word">Orphan...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Data not saved because it is empty.</string>
 </resources>
