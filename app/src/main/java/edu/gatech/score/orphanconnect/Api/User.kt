@@ -18,11 +18,5 @@ class User (
     val first: String,
     @SerializedName("last")
     @Expose
-    val last: String,
-    @SerializedName("photo_id")
-    @Expose
-    val photo_id: Int,
-    @SerializedName("payment_id")
-    @Expose
-    val payment_id: String
+    val last: String
 )

@@ -10,7 +10,7 @@ class Orphan(
         val firstName: String,
         val lastName: String,
         val age: Int,
-        val sex: Sex,
+        val sex: String,
         val description: String?,
         val photoUrl: String?,
         val refugeeCamp: String?,
