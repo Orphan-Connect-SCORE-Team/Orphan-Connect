@@ -1,5 +1,6 @@
 package com.example.score_coding_demo
 
+import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.Call
@@ -7,10 +8,12 @@ import retrofit2.Callback
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 class TestApi {
 
-    private val api: Api?
+    public val api: Api?
     final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
 
     init {
@@ -23,11 +26,12 @@ class TestApi {
     }
 
     //Note: JvmOverloads ensures kotlin optional parameters work in java files, remove when kotlin fixes this issue in the future
-
-    fun getUser(email: String): User? {
+/*
+    fun getUser(email: String) {
         try {
             val user = api!!.getUser(email)
             System.out.println("Login began")
+
             user.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     System.out.println("Failure "  + t.message)
@@ -36,7 +40,7 @@ class TestApi {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         System.out.println("Succeeded")
-                        System.out.println(response.body()!!.password)
+                        //Handle login through response.body!!
                     } else {
                         System.out.println("Unsuccessful")
                         System.out.println(response.message())
@@ -46,8 +50,35 @@ class TestApi {
         } catch (e: Exception) {
             System.out.println("Exception occurred: " + e.toString());
         }
+    }
+*/
+    fun getUsers(): List<User>? {
+        var retVal: List<User>? = null
+        try {
+            val users = api!!.getUsers()
+            System.out.println("Getting users")
 
-        return null
+            users.enqueue(object: Callback<List<User>> {
+                override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                    System.out.println("Failure "  + t.message)
+                }
+
+                override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                    if (response.isSuccessful) {
+                        System.out.println("Succeeded")
+                        System.out.println("Total users: " + response.body()!!.count())
+                        retVal = response.body()!!
+                    } else {
+                        System.out.println("Unsuccessful")
+                        System.out.println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            System.out.println("getUsers exception occurred: " + e.toString())
+        }
+
+        return retVal
     }
 
     //Signup with name

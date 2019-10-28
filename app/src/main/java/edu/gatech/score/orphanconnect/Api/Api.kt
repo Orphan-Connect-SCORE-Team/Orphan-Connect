@@ -7,6 +7,8 @@ import com.example.score_coding_demo.HTTPMessage;
 interface Api {
     @GET("/api/users/Read.php")
     fun getUser(@Query("email") email: String): Call<User>
+    @POST("/api/users/GetUsers.php")
+    fun getUsers(): Call<List<User>>
     @POST("/api/users/CreateUser.php")
     fun signup(@Query("email") email: String,
                @Query("password") password: String,
