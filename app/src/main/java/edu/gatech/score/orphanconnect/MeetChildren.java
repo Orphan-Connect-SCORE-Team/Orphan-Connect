@@ -105,7 +105,7 @@ public class MeetChildren extends AppCompatActivity
         final LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.popwindow, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         final Spinner spinner = popupView.findViewById(R.id.donation_frequency);
         spinner.setVisibility(View.INVISIBLE);
 
@@ -169,7 +169,7 @@ public class MeetChildren extends AppCompatActivity
         final LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.confirm, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         // create the popup window
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
@@ -200,7 +200,7 @@ public class MeetChildren extends AppCompatActivity
         final LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.thankyou, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         // create the popup window
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);

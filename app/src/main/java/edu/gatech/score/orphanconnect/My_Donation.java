@@ -100,7 +100,7 @@ public class My_Donation extends AppCompatActivity
         final LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.donation_history_popup, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -130,7 +130,7 @@ public class My_Donation extends AppCompatActivity
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.donation_history_change_amount, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -162,7 +162,7 @@ public class My_Donation extends AppCompatActivity
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.confirm2, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.animator.popup_anim));
+        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.popup_anim));
         boolean focusable = true; // lets taps outside the popup also dismiss it
         final PopupWindow popupWindow = new PopupWindow(popupView, 850, 850, focusable);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
