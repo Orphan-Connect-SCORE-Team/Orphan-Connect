@@ -3,6 +3,10 @@ package com.example.score_coding_demo
 import retrofit2.Call
 import retrofit2.http.*
 
+import edu.gatech.score.orphanconnect.api.HTTPMessage;
+import edu.gatech.score.orphanconnect.api.User
+
+
 interface Api {
     @GET("/api/users/Read.php")
     fun getUser(@Query("email") email: String): Call<User>

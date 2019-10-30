@@ -37,8 +37,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_name"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/app_name" />
 
     <EditText
         android:id="@+id/input_password"
@@ -51,8 +50,7 @@
         app:layout_constraintEnd_toEndOf="@+id/input_email"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/input_email" />
 
     <Button
         android:id="@+id/button_login"

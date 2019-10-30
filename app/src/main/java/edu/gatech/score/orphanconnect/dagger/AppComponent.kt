@@ -1,6 +1,7 @@
 package edu.gatech.score.orphanconnect.dagger
 
 import dagger.Component
+import edu.gatech.score.orphanconnect.application.ScoreApplication
 import javax.inject.Singleton
 
 @Singleton
@@ -11,4 +12,8 @@ import javax.inject.Singleton
         RepositoryModule::class
     ]
 )
-interface AppComponent
+interface AppComponent {
+
+    // Application
+    fun inject(application: ScoreApplication)
+}

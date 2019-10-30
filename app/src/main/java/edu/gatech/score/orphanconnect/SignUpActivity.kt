@@ -8,10 +8,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.score_coding_demo.HTTPMessage
+import edu.gatech.score.orphanconnect.api.HTTPMessage
 
-import com.example.score_coding_demo.TestApi
-import com.example.score_coding_demo.User
+import edu.gatech.score.orphanconnect.api.TestApi
+import edu.gatech.score.orphanconnect.api.User
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +26,6 @@ class SignUpActivity : AppCompatActivity() {
     private var emailField: EditText? = null
     private var passwordField: EditText? = null
     private var confirmPasswordField: EditText? = null
-    private val users: List<User>? = null
     var checkEmailRepeated : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,6 +100,8 @@ class SignUpActivity : AppCompatActivity() {
             System.out.println("Exception occurred: " + e.toString());
         }
     }
+
+
 
 
     fun onClick(view: View) {

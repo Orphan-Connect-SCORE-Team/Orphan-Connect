@@ -12,8 +12,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-import com.example.score_coding_demo.User
-import com.example.score_coding_demo.TestApi
+import edu.gatech.score.orphanconnect.api.HTTPMessage
+
+import edu.gatech.score.orphanconnect.api.TestApi
+import edu.gatech.score.orphanconnect.api.User
 
 class LoginActivity : AppCompatActivity() {
     private var inputEmail: EditText? = null
