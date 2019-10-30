@@ -15,6 +15,7 @@ class TestApi {
 
     public val api: Api?
     final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
+    var checkEmailRepeated : Boolean = false
 
     init {
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
@@ -82,31 +83,36 @@ class TestApi {
     }
 
     //Signup with name
-    @JvmOverloads fun signup(email: String, password: String, first: String? = "", last: String? = ""): HTTPMessage? {
-        try {
-            val signup = api!!.signup(email, password, first, last)
-            System.out.println("Signup began")
-            signup.enqueue(object: Callback<HTTPMessage> {
-                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
-                    System.out.println("Failure "  + t.message)
-                }
-
-                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
-                    if (response.isSuccessful) {
-                        System.out.println("Succeeded")
-                        System.out.println(response.body()!!.message)
-                    } else {
-                        System.out.println("Unsuccessful")
-                        System.out.println(response.message())
-                    }
-                }
-            })
-        } catch (e: Exception) {
-            System.out.println("Exception occurred: " + e.toString());
-        }
-
-        return null
-    }
+//     fun signup(email: String, password: String, first: String, last: String): Boolean {
+//
+//        try {
+//
+//            val signup = api!!.signup(email, password, first, last)
+//            System.out.println("Signup began")
+//            signup.enqueue(object: Callback<HTTPMessage> {
+//                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
+//                    System.out.println("Failure "  + t.message)
+//                }
+//
+//                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
+//                    if (response.isSuccessful) {
+//                        checkEmailRepeated = true
+//                        System.out.println("Succeeded")
+//                        System.out.println(response.body()!!.message)
+//
+//
+//                    } else {
+//                        System.out.println("Unsuccessful")
+//                        System.out.println(response.message())
+//                    }
+//                }
+//            })
+//        } catch (e: Exception) {
+//            System.out.println("Exception occurred: " + e.toString());
+//        }
+//
+//        return checkEmailRepeated
+//    }
 
     //Create orphan
     @JvmOverloads fun createOrphan(firstName: String, lastName: String, age: Int, sex: String? = "",

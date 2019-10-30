@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SignUpActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ForgetPassword"></activity>
         <activity
             android:name=".My_Donation"
@@ -40,7 +39,7 @@
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowAnimationStyle="@null" />
-        <activity android:name=".LoginActivity1">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

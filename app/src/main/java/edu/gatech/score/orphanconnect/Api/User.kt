@@ -19,4 +19,5 @@ class User (
     @SerializedName("last")
     @Expose
     val last: String
+
 )
