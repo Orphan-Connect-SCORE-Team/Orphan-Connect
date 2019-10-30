@@ -15,7 +15,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:paddingTop="70dp"
-        android:paddingRight="90dp"
+        android:paddingRight="90sp"
         android:text="  Please confirm that you are changing the amount of recurring donation to Mary to $15"
         android:textAlignment="center"
         android:textColor="#ffffff"
@@ -42,10 +42,10 @@
         android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <Button
         android:id="@+id/confirm2_cancel"
@@ -62,9 +62,9 @@
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.751"
+        app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
