@@ -11,15 +11,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-// Annotates class to be a Room Database with a table (entity) of the Word class
 @Database(entities = [Orphan::class], version = 1)
 abstract class ScoreDatabase : RoomDatabase() {
 
     abstract fun orphanDao(): OrphanDao
 
     companion object {
-        // Singleton prevents multiple instances of database opening at the
-        // same time.
         @Volatile
         private var INSTANCE: ScoreDatabase? = null
 
