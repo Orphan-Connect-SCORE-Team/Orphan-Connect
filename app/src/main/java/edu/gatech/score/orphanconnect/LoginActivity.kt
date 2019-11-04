@@ -75,8 +75,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun onClick(view: View) {
+
+        this.userLogin("obreese@gatech.edu", "password")
+/*
         val intent = Intent(this@LoginActivity, ForgetPassword::class.java)
         startActivity(intent)
-        finish()
+        finish()*/
     }
 }

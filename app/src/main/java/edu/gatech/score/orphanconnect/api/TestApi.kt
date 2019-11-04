@@ -136,4 +136,36 @@ class TestApi {
 
         return null
     }
+
+    fun getOrphans(number: Int): List<Orphan>? {
+        var retVal: List<Orphan>? = null
+        try {
+            val orphans = api!!.getOrphansRandom(number)
+            println("Getting orphans")
+
+            orphans.enqueue(object : Callback<List<Orphan>> {
+                override fun onFailure(call: Call<List<Orphan>>, t: Throwable) {
+                    println("Failure " + t.message)
+                }
+
+                override fun onResponse(call: Call<List<Orphan>>, response: Response<List<Orphan>>) {
+                    if (response.isSuccessful) {
+                        println("Succeeded")
+                        println("Total orphans: " + response.body()!!.count())
+
+                        //println("Name 1: " + response.body()!![0].firstName)
+                        //println("Name 2: " + response.body()!![1].firstName)
+                        retVal = response.body()!!
+                    } else {
+                        println("Unsuccessful")
+                        println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            println("getOrphans exception occurred: $e")
+        }
+
+        return retVal
+    }
 }
