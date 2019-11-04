@@ -3,8 +3,10 @@ package com.example.score_coding_demo
 import retrofit2.Call
 import retrofit2.http.*
 import edu.gatech.score.orphanconnect.api.HTTPMessage
+
 import edu.gatech.score.orphanconnect.api.User
 import edu.gatech.score.orphanconnect.api.Orphan
+
 
 interface Api {
     @GET("/api/users/Read.php")
@@ -14,10 +16,10 @@ interface Api {
     @POST("/api/users/GetUsers.php")
     fun getUsers(): Call<List<User>>
     @POST("/api/users/CreateUser.php")
-    fun signup(@Query("email") email: String,
+    fun signUp(@Query("email") email: String,
                @Query("password") password: String,
-               @Query("first") first: String?,
-               @Query("last") last: String?): Call<HTTPMessage>
+               @Query("first") first: String,
+               @Query("last") last: String): Call<HTTPMessage>
     @POST("/api/orphans/CreateOrphan.php")
     fun createOrphan(@Query("firstName") firstName: String,
                      @Query("lastName") lastName: String,
