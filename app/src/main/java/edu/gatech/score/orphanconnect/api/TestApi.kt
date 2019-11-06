@@ -1,6 +1,5 @@
 package edu.gatech.score.orphanconnect.api
 
-import com.example.score_coding_demo.Api
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

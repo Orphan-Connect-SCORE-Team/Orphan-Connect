@@ -1,4 +1,4 @@
-package com.example.score_coding_demo
+package edu.gatech.score.orphanconnect.api
 
 import retrofit2.Call
 import retrofit2.http.*
