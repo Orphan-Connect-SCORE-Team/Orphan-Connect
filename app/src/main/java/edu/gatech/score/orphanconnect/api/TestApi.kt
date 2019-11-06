@@ -1,6 +1,5 @@
 package edu.gatech.score.orphanconnect.api
 
-import com.example.score_coding_demo.Api
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,8 +9,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class TestApi {
 
-    val api: Api?
-    val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
+
+    public val api: Api?
+    final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
+    var checkEmailRepeated : Boolean = false
+
+
 
     init {
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
@@ -79,32 +82,64 @@ class TestApi {
     }
 
     //Signup with name
-    @JvmOverloads
-    fun signup(email: String, password: String, first: String? = "", last: String? = ""): HTTPMessage? {
-        try {
-            val signup = api!!.signup(email, password, first, last)
-            println("Signup began")
-            signup.enqueue(object : Callback<HTTPMessage> {
-                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
-                    println("Failure " + t.message)
-                }
+//     fun signup(email: String, password: String, first: String, last: String): Boolean {
+//
+//        try {
+//
+//            val signup = api!!.signup(email, password, first, last)
+//            System.out.println("Signup began")
+//            signup.enqueue(object: Callback<HTTPMessage> {
+//                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
+//                    System.out.println("Failure "  + t.message)
+//                }
+//
+//                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
+//                    if (response.isSuccessful) {
+//                        checkEmailRepeated = true
+//                        System.out.println("Succeeded")
+//                        System.out.println(response.body()!!.message)
+//
+//
+//                    } else {
+//                        System.out.println("Unsuccessful")
+//                        System.out.println(response.message())
+//                    }
+//                }
+//            })
+//        } catch (e: Exception) {
+//            System.out.println("Exception occurred: " + e.toString());
+//        }
+//
+//        return checkEmailRepeated
+//    }
+//=======
+//    @JvmOverloads
+//    fun signup(email: String, password: String, first: String? = "", last: String? = ""): HTTPMessage? {
+//        try {
+//            val signup = api!!.signup(email, password, first, last)
+//            println("Signup began")
+//            signup.enqueue(object : Callback<HTTPMessage> {
+//                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
+//                    println("Failure " + t.message)
+//                }
+//
+//                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
+//                    if (response.isSuccessful) {
+//                        println("Succeeded")
+//                        println(response.body()!!.message)
+//                    } else {
+//                        println("Unsuccessful")
+//                        println(response.message())
+//                    }
+//                }
+//            })
+//        } catch (e: Exception) {
+//            println("Exception occurred: $e")
+//        }
+//
+//        return null
+//    }
 
-                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
-                    if (response.isSuccessful) {
-                        println("Succeeded")
-                        println(response.body()!!.message)
-                    } else {
-                        println("Unsuccessful")
-                        println(response.message())
-                    }
-                }
-            })
-        } catch (e: Exception) {
-            println("Exception occurred: $e")
-        }
-
-        return null
-    }
 
     //Create orphan
     @JvmOverloads
@@ -135,5 +170,37 @@ class TestApi {
         }
 
         return null
+    }
+
+    fun getOrphans(number: Int): List<Orphan>? {
+        var retVal: List<Orphan>? = null
+        try {
+            val orphans = api!!.getOrphansRandom(number)
+            println("Getting orphans")
+
+            orphans.enqueue(object : Callback<List<Orphan>> {
+                override fun onFailure(call: Call<List<Orphan>>, t: Throwable) {
+                    println("Failure " + t.message)
+                }
+
+                override fun onResponse(call: Call<List<Orphan>>, response: Response<List<Orphan>>) {
+                    if (response.isSuccessful) {
+                        println("Succeeded")
+                        println("Total orphans: " + response.body()!!.count())
+
+                        //println("Name 1: " + response.body()!![0].firstName)
+                        //println("Name 2: " + response.body()!![1].firstName)
+                        retVal = response.body()!!
+                    } else {
+                        println("Unsuccessful")
+                        println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            println("getOrphans exception occurred: $e")
+        }
+
+        return retVal
     }
 }

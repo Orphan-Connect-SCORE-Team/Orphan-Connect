@@ -37,7 +37,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout2">
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_SU"
@@ -103,10 +103,33 @@
         app:layout_constraintTop_toBottomOf="@id/app_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/name_SU"
+            android:id="@+id/firstname_SU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/prompt_name"
+            android:hint="First Name"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        style="@style/textBox"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lastname_SU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark" />
 
