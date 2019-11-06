@@ -51,16 +51,15 @@ abstract class ScoreDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(OrphanDao: OrphanDao) {
-            // Delete all content here.
             OrphanDao.deleteAll()
 
-            // Add sample words.
-//        var word = Orphan("Hello")
-//        wordDao.insert(word)
-//        word = Orphan("World!")
-//        wordDao.insert(word)
-
-            // TODO: Add orphans?
+            // Add sample orphans
+            OrphanDao.upsert(Orphan("1", "Maddie", "Wiggins",22, "female"))
+            OrphanDao.upsert(Orphan("2", "First1", "Last1",1, "male", description = "I like to eat pizza", refugeeCamp = "Refugee Camp 1", village = "Village 1"))
+            OrphanDao.upsert(Orphan("3", "First2", "Last2",2, "female", refugeeCamp = "Refugee Camp 2"))
+            OrphanDao.upsert(Orphan("4", "First3", "Last3",3, "male", description = "I like stuff", village = "Village 1"))
+            OrphanDao.upsert(Orphan("5", "First4", "Last4",100, "female", description = "I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot "))
+            OrphanDao.upsert(Orphan("6", "First5", "Last5",7, "female", refugeeCamp = "Refugee Camp 2"))
         }
     }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.gatech.score.orphanconnect.R
 import edu.gatech.score.orphanconnect.database.domain.Orphan
+import kotlinx.android.synthetic.main.orphan_item.view.*
 
 class OrphanListAdapter internal constructor(
         context: Context
@@ -16,20 +17,42 @@ class OrphanListAdapter internal constructor(
     private var orphans = emptyList<Orphan>() // Cached copy of orphans
 
     inner class OrphanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val orphanItemView: TextView = itemView.findViewById(R.id.textView)
+        val nameAndAge = itemView.text_name_age
+        val refugeeCampOrVillage = itemView.text_refugeeCamp_village
+        val description = itemView.text_description
+        val picture = itemView.img_profile_photo
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrphanViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
+        val itemView = inflater.inflate(R.layout.orphan_item, parent, false)
         return OrphanViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: OrphanViewHolder, position: Int) {
         val current = orphans[position]
-        holder.orphanItemView.text = "${current.firstName} ${current.lastName}, ${current.age}"
+        holder.nameAndAge.text = "${current.firstName} ${current.lastName}, ${current.age}"
+        holder.refugeeCampOrVillage.text = if (!current.refugeeCamp.isNullOrBlank()) {
+            if (!current.village.isNullOrBlank()) {
+                "${current.refugeeCamp}, ${current.village}"
+            }
+            else {
+                current.refugeeCamp
+            }
+        }
+        else {
+            if (!current.village.isNullOrBlank()) {
+                current.village
+            }
+            else {
+                ""
+            }
+        }
+        holder.description.text = current.description ?: ""
+        //holder.img implementation here
     }
 
-    internal fun setWords(words: List<Orphan>) {
+    fun setOrphans(orphans: List<Orphan>) {
         this.orphans = orphans
         notifyDataSetChanged()
     }

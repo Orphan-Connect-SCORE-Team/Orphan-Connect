@@ -16,7 +16,7 @@ class OrphanViewModel(application: Application) : AndroidViewModel(application) 
 
     // The ViewModel maintains a reference to the repository to get data.
     @Inject
-    private lateinit var orphanRepo: OrphanRepo
+    lateinit var orphanRepo: OrphanRepo
     // LiveData gives us updated orphans when they change.
     val allOrphans: LiveData<List<Orphan>>
 
