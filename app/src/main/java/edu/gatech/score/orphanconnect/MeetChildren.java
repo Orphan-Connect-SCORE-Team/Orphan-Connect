@@ -4,27 +4,22 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.annotation.Nullable;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
-import edu.gatech.score.orphanconnect.database.OrphanViewModel;
-import edu.gatech.score.orphanconnect.database.domain.Orphan;
-
 import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
+import edu.gatech.score.orphanconnect.database.OrphanViewModel;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,8 +27,6 @@ import java.util.List;
 public class MeetChildren extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private boolean recurring = false;
-
-    private OrphanViewModel orphanViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +39,6 @@ public class MeetChildren extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-//        ImageView boy = findViewById(R.id.boy);
-//        ImageView girl = findViewById(R.id.girl);
-
-//        girl.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onChildClicked(v);
-//            }
-//        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -79,7 +62,7 @@ public class MeetChildren extends AppCompatActivity
             }
         });
 
-        orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
+        OrphanViewModel orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final OrphanListAdapter adapter = new OrphanListAdapter(this);
@@ -88,13 +71,7 @@ public class MeetChildren extends AppCompatActivity
         //Additional Code not from original guide
         recyclerView.setLayoutManager(layoutManager);
 
-        orphanViewModel.getAllOrphans().observe(this, new Observer<List<Orphan>>() {
-            @Override
-            public void onChanged(@Nullable final List<Orphan> orphans) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setOrphans(orphans);
-            }
-        });
+        orphanViewModel.getAllOrphans().observe(this, adapter::setOrphans);
     }
 
     @Override

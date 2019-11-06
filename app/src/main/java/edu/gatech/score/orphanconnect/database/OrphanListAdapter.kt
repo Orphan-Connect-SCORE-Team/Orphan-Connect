@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.gatech.score.orphanconnect.R
@@ -12,16 +13,22 @@ import kotlinx.android.synthetic.main.orphan_item.view.*
 
 class OrphanListAdapter internal constructor(
         context: Context
-) : RecyclerView.Adapter<OrphanListAdapter.OrphanViewHolder>()  {
+): RecyclerView.Adapter<OrphanListAdapter.OrphanViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var orphans = emptyList<Orphan>() // Cached copy of orphans
+    private var orphans = emptyList<Orphan>()
+
+    fun setOrphans(orphans: List<Orphan>?) {
+        this.orphans = orphans ?: emptyList()
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = orphans.size
 
     inner class OrphanViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameAndAge = itemView.text_name_age
-        val refugeeCampOrVillage = itemView.text_refugeeCamp_village
-        val description = itemView.text_description
-        val picture = itemView.img_profile_photo
-
+        val profilePhoto: ImageView = itemView.img_profile_photo
+        val nameAndAge: TextView = itemView.text_name_age
+        val refugeeCampOrVillage: TextView = itemView.text_refugeeCamp_village
+        val description: TextView = itemView.text_description
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrphanViewHolder {
@@ -30,32 +37,37 @@ class OrphanListAdapter internal constructor(
     }
 
     override fun onBindViewHolder(holder: OrphanViewHolder, position: Int) {
-        val current = orphans[position]
-        holder.nameAndAge.text = "${current.firstName} ${current.lastName}, ${current.age}"
-        holder.refugeeCampOrVillage.text = if (!current.refugeeCamp.isNullOrBlank()) {
-            if (!current.village.isNullOrBlank()) {
-                "${current.refugeeCamp}, ${current.village}"
-            }
-            else {
-                current.refugeeCamp
-            }
+        val orphan = orphans[position]
+        holder.nameAndAge.text = "${orphan.firstName} ${orphan.lastName}, ${orphan.age}"
+
+        val refugeeCampAndVillageText = getRefugeeCampAndVillage(orphan.refugeeCamp, orphan.village)
+        if (refugeeCampAndVillageText == null) {
+            holder.refugeeCampOrVillage.visibility = View.GONE
+        } else {
+            holder.refugeeCampOrVillage.text = refugeeCampAndVillageText
+            holder.refugeeCampOrVillage.visibility = View.VISIBLE
         }
-        else {
-            if (!current.village.isNullOrBlank()) {
-                current.village
-            }
-            else {
-                ""
-            }
+
+        if (orphan.description.isNullOrBlank()) {
+            holder.description.visibility = View.GONE
+        } else {
+            holder.description.text = orphan.description
+            holder.description.visibility = View.VISIBLE
         }
-        holder.description.text = current.description ?: ""
-        //holder.img implementation here
+
+        // TODO: use Glide to set profile photo here
     }
 
-    fun setOrphans(orphans: List<Orphan>) {
-        this.orphans = orphans
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount() = orphans.size
+    private fun getRefugeeCampAndVillage(refugeeCamp: String?, village: String?): String? =
+            if (!refugeeCamp.isNullOrBlank()) {
+                if (!village.isNullOrBlank())
+                    "$refugeeCamp, $village"
+                else
+                    refugeeCamp
+            } else {
+                if (!village.isNullOrBlank())
+                    village
+                else
+                    null
+            }
 }
