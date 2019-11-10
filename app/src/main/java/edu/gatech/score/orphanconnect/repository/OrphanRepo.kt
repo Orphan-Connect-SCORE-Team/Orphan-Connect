@@ -11,4 +11,7 @@ class OrphanRepo(private val orphanDao: OrphanDao) {
     fun getOrphan(orphanId: Int): LiveData<Orphan> = orphanDao.getOrphan(orphanId)
 
     suspend fun upsert(orphan: Orphan) = orphanDao.upsert(orphan)
+    fun insert(orphan: Orphan) {
+
+    }
 }

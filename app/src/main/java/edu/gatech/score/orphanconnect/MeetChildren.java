@@ -13,6 +13,8 @@ import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import androidx.annotation.Nullable;
 import com.nimbusds.jose.Header;
 
 import androidx.core.view.GravityCompat;
@@ -20,6 +22,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
+import edu.gatech.score.orphanconnect.database.OrphanViewModel;
+import edu.gatech.score.orphanconnect.database.domain.Orphan;
+
 import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
@@ -47,6 +58,8 @@ public class MeetChildren extends AppCompatActivity
     final String TEST_SERVER = "http://10.0.2.2:3000";
     String CLIENT_TOKEN = "sandbox_mfgm9rgj_b2rnychf57r462kj";
 
+    private OrphanViewModel orphanViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +72,15 @@ public class MeetChildren extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        ImageView boy = findViewById(R.id.boy);
-        ImageView girl = findViewById(R.id.girl);
+//        ImageView boy = findViewById(R.id.boy);
+//        ImageView girl = findViewById(R.id.girl);
 
-        girl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onChildClicked(v);
-            }
-        });
+//        girl.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onChildClicked(v);
+//            }
+//        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -88,6 +101,25 @@ public class MeetChildren extends AppCompatActivity
                         return true;
                 }
                 return false;
+            }
+        });
+
+        orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        final OrphanListAdapter adapter = new OrphanListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        //Attempt to customize
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        //Additional Code not from original guide
+        recyclerView.setLayoutManager(layoutManager);
+
+        orphanViewModel.getAllOrphans().observe(this, new Observer<List<Orphan>>() {
+            @Override
+            public void onChanged(@Nullable final List<Orphan> orphans) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setOrphans(orphans);
             }
         });
     }
@@ -123,7 +155,7 @@ public class MeetChildren extends AppCompatActivity
         return true;
     }
 
-
+    //Rewrite this for RecyclerView?
     public void onChildClicked(View view) {
         // inflate the layout of the popup window
         final LayoutInflater inflater = (LayoutInflater)

@@ -11,12 +11,12 @@ class Orphan(
         val lastName: String,
         val age: Int,
         val sex: String,
-        val description: String?,
-        val photoUrl: String?,
-        val refugeeCamp: String?,
-        val village: String?,
-        val LGA: String?,
-        val county: String?,
-        val motherName: String?,
-        val fatherName: String?
+        val description: String? = null,
+        val photoUrl: String? = null,
+        val refugeeCamp: String? = null,
+        val village: String? = null,
+        val LGA: String? = null,
+        val county: String? = null,
+        val motherName: String? = null,
+        val fatherName: String? = null
 )
