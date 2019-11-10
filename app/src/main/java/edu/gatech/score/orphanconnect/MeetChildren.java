@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
@@ -84,6 +85,8 @@ public class MeetChildren extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final OrphanListAdapter adapter = new OrphanListAdapter(this);
         recyclerView.setAdapter(adapter);
+        //Attempt to customize
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         //Additional Code not from original guide
         recyclerView.setLayoutManager(layoutManager);
