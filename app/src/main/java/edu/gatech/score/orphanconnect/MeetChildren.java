@@ -1,14 +1,22 @@
 package edu.gatech.score.orphanconnect;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.braintreepayments.api.dropin.DropInActivity;
+import com.braintreepayments.api.dropin.DropInRequest;
+import com.braintreepayments.api.dropin.DropInResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.Nullable;
+import com.nimbusds.jose.Header;
+
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,13 +34,29 @@ import edu.gatech.score.orphanconnect.database.domain.Orphan;
 import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
+import com.loopj.android.http.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.SQLOutput;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 
 public class MeetChildren extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private boolean recurring = false;
+    final int REQUEST_CODE = 1;
+    final String get_token = "API to get token";
+    final String send_payment = "API to send payment info";
+    String token, amount;
+    HashMap<String, String> paramHash;
+    final String TEST_SERVER = "http://10.0.2.2:3000";
+    String CLIENT_TOKEN = "sandbox_mfgm9rgj_b2rnychf57r462kj";
 
     private OrphanViewModel orphanViewModel;
 
@@ -183,10 +207,20 @@ public class MeetChildren extends AppCompatActivity
         popupView.findViewById(R.id.donate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onDonateClicked(vi);
+                //onDonateClicked(vi);
+//                AsyncHttpClient client = new AsyncHttpClient();
+//                client.get("https://your-server/client_token", new TextHttpResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int statusCode, Header[] headers, String clientToken) {
+//                        CLIENT_TOKEN = clientToken;
+//                    }
+//                });
+                onBraintreeSubmit(v);
                 popupWindow.dismiss();
             }
         });
+
+
 
         popupView.findViewById(R.id.donate_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,6 +228,29 @@ public class MeetChildren extends AppCompatActivity
                 popupWindow.dismiss();
             }
         });
+    }
+
+    public void onBraintreeSubmit(View v) {
+        System.out.println("donate pressed");
+        DropInRequest dropInRequest = new DropInRequest().clientToken(CLIENT_TOKEN);
+        startActivityForResult(dropInRequest.getIntent(this), REQUEST_CODE);
+        System.out.println("anything?");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                DropInResult result = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
+                //update UI and send payment info to server
+            } else if (resultCode == RESULT_CANCELED) {
+                //user canceled here
+            } else {
+                //error handling, may be an exception
+                Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
+            }
+        }
     }
 
     public void onDonateClicked(View view) {
