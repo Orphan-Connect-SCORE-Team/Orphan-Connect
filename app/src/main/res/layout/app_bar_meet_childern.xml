@@ -21,7 +21,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_meet_childern" />
+    <include
+        layout="@layout/content_meet_childern"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
