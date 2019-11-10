@@ -35,16 +35,6 @@ public class Pop extends Activity {
 
         getWindow().setAttributes(params);
 
-
-        String mAuthorization = this.getString(R.string.merchantID);
-
-        try {
-            BraintreeFragment mBraintreeFragment = BraintreeFragment.newInstance(this, mAuthorization);
-            // mBraintreeFragment is ready to use!
-        } catch (InvalidArgumentException e) {
-            // There was an issue with your authorization string.
-        }
-
         Button donate = findViewById(R.id.donate);
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
