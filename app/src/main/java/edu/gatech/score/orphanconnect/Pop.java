@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import com.braintreepayments.api.BraintreeFragment;
+import com.braintreepayments.api.exceptions.InvalidArgumentException;
+
 public class Pop extends Activity {
 
     @Override
@@ -32,7 +35,6 @@ public class Pop extends Activity {
 
         getWindow().setAttributes(params);
 
-
         Button donate = findViewById(R.id.donate);
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,5 +42,6 @@ public class Pop extends Activity {
                 startActivity(new Intent(Pop.this, MainActivity.class));
             }
         });
+
     }
 }
