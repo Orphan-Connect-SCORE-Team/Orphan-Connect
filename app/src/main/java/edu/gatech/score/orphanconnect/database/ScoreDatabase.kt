@@ -55,11 +55,11 @@ abstract class ScoreDatabase : RoomDatabase() {
 
             // Add sample orphans
             OrphanDao.upsert(Orphan("1", "Maddie", "Wiggins",22, "female"))
-            OrphanDao.upsert(Orphan("2", "First1", "Last1",1, "male", description = "I like to eat pizza", refugeeCamp = "Refugee Camp 1", village = "Village 1"))
-            OrphanDao.upsert(Orphan("3", "First2", "Last2",2, "female", refugeeCamp = "Refugee Camp 2"))
-            OrphanDao.upsert(Orphan("4", "First3", "Last3",3, "male", description = "I like stuff", village = "Village 1"))
-            OrphanDao.upsert(Orphan("5", "First4", "Last4",100, "female", description = "I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot I like games and a whole lot of other things that can make this text overfloow sooooooooooooo much a lot "))
-            OrphanDao.upsert(Orphan("6", "First5", "Last5",7, "female", refugeeCamp = "Refugee Camp 2"))
+            OrphanDao.upsert(Orphan("2", "Joe", "Chen",23, "male", description = "I love soccer!", refugeeCamp = "Southern Refugee Camp", village = "Southern Village"))
+            OrphanDao.upsert(Orphan("3", "Dylan", "Reese",20, "male", refugeeCamp = "Western Refugee Camp"))
+            OrphanDao.upsert(Orphan("4", "Amaan", "Marfatia",20, "male", description = "I like basketball!", village = "Southern Village"))
+            OrphanDao.upsert(Orphan("5", "Jiajie", "Lin",21, "male", description = "I like video games!"))
+            OrphanDao.upsert(Orphan("6", "Joshua", "Mellott",23, "male", refugeeCamp = "Western Refugee Camp"))
         }
     }
 }
