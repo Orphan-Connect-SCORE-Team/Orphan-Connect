@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:onClick="onBraintreeSubmit">
 
     <ImageView
         android:id="@+id/img_profile_photo"
@@ -18,7 +19,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
-        android:style="@style/blueText"
+        style="@style/blueText"
         android:id="@+id/text_name_age"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
