@@ -18,6 +18,7 @@
         tools:src="@tools:sample/avatars" />
 
     <TextView
+        style="@style/blueText"
         android:id="@+id/text_name_age"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

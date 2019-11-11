@@ -39,6 +39,13 @@ android {
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://cardinalcommerce.bintray.com/android"
+        credentials {
+            username 'braintree-team-sdk@cardinalcommerce'
+            password '220cc9476025679c4e5c843666c27d97cfb0f951'
+        }
+    }
 }
 
 ext {
@@ -60,6 +67,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation 'com.loopj.android:android-async-http:1.4.9'
 
     // Room components
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -91,4 +99,7 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
+
+    //Braintree Integration
+    implementation "com.braintreepayments.api:drop-in:4.4.1"
 }

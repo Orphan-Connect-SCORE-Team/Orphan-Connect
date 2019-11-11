@@ -36,4 +36,12 @@
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
+    <style name="blueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#2B98F0</item>
+    </style>
+
+    <style name="darkBlueText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#136B99</item>
+    </style>
+
 </resources>
