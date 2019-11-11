@@ -2,20 +2,16 @@ package edu.gatech.score.orphanconnect
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-
+import androidx.appcompat.app.AppCompatActivity
+import edu.gatech.score.orphanconnect.api.TestApi
+import edu.gatech.score.orphanconnect.api.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-import edu.gatech.score.orphanconnect.api.HTTPMessage
-
-import edu.gatech.score.orphanconnect.api.TestApi
-import edu.gatech.score.orphanconnect.api.User
 
 class LoginActivity : AppCompatActivity() {
     private var inputEmail: EditText? = null
@@ -62,9 +58,9 @@ class LoginActivity : AppCompatActivity() {
             val user = api.api!!.getUser(email)
             System.out.println("Login began")
 
-            user.enqueue(object: Callback<User> {
+            user.enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    System.out.println("Failure "  + t.message)
+                    System.out.println("Failure " + t.message)
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
