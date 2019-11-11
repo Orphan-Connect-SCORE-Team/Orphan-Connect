@@ -4,8 +4,8 @@ package edu.gatech.score.orphanconnect;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ForgetPassword extends AppCompatActivity {
 

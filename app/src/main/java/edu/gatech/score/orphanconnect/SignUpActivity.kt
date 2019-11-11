@@ -2,17 +2,13 @@ package edu.gatech.score.orphanconnect
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import edu.gatech.score.orphanconnect.api.HTTPMessage
-
 import edu.gatech.score.orphanconnect.api.TestApi
-import edu.gatech.score.orphanconnect.api.User
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
     private var emailField: EditText? = null
     private var passwordField: EditText? = null
     private var confirmPasswordField: EditText? = null
-    var checkEmailRepeated : Boolean = false
+    var checkEmailRepeated: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +57,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this@SignUpActivity, "The length of passwords should longer than 6 characters.",
                         Toast.LENGTH_SHORT).show()
             } else {
-                signup(email,password,firstname,lastname)
+                signup(email, password, firstname, lastname)
 
             }
         })
@@ -73,9 +69,9 @@ class SignUpActivity : AppCompatActivity() {
 
             val signup = api.api!!.signUp(email, password, first, last)
             System.out.println("Signup began")
-            signup.enqueue(object: Callback<HTTPMessage> {
+            signup.enqueue(object : Callback<HTTPMessage> {
                 override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
-                    System.out.println("Failure "  + t.message)
+                    System.out.println("Failure " + t.message)
                 }
 
                 override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
@@ -91,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
                         System.out.println("Unsuccessful")
                         System.out.println(response.message())
                         Toast.makeText(this@SignUpActivity, "The e-mail has already been signed up",
-                            Toast.LENGTH_SHORT).show()
+                                Toast.LENGTH_SHORT).show()
 
                     }
                 }
@@ -100,8 +96,6 @@ class SignUpActivity : AppCompatActivity() {
             System.out.println("Exception occurred: " + e.toString());
         }
     }
-
-
 
 
     fun onClick(view: View) {
