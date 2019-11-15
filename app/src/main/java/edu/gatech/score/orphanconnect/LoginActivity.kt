@@ -8,7 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import edu.gatech.score.orphanconnect.api.TestApi
-import edu.gatech.score.orphanconnect.api.User
+import edu.gatech.score.orphanconnect.web.responses.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

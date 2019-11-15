@@ -7,7 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.gatech.score.orphanconnect.api.HTTPMessage
+import edu.gatech.score.orphanconnect.web.responses.HTTPMessage
 import edu.gatech.score.orphanconnect.api.TestApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -99,7 +99,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
     fun onClick(view: View) {
-
         val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
         startActivity(intent)
         finish()

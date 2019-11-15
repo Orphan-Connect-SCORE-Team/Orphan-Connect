@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.*;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -57,22 +56,19 @@ public class MeetChildren extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         BottomNavigationView buttonNavigationView = findViewById(R.id.navigation);
         buttonNavigationView.getMenu().setGroupCheckable(0, false, true);
-        buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_home:
-                        startActivity(new Intent(MeetChildren.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    case R.id.navigation_account:
-                        return true;
-                    case R.id.navigation_donation:
-                        startActivity(new Intent(MeetChildren.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                        return true;
-                    case R.id.navigation_map:
-                        return true;
-                }
-                return false;
+        buttonNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(MeetChildren.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                case R.id.navigation_account:
+                    return true;
+                case R.id.navigation_donation:
+                    startActivity(new Intent(MeetChildren.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    return true;
+                case R.id.navigation_map:
+                    return true;
             }
+            return false;
         });
 
         OrphanViewModel orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
@@ -232,19 +228,11 @@ public class MeetChildren extends AppCompatActivity
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         final View vi = view;
-        popupView.findViewById(R.id.confirm_ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onConfirmClicked(vi);
-                popupWindow.dismiss();
-            }
+        popupView.findViewById(R.id.confirm_ok).setOnClickListener(v -> {
+            onConfirmClicked(vi);
+            popupWindow.dismiss();
         });
-        popupView.findViewById(R.id.confirm_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
+        popupView.findViewById(R.id.confirm_cancel).setOnClickListener(v -> popupWindow.dismiss());
     }
 
     public void onConfirmClicked(View view) {
@@ -269,12 +257,9 @@ public class MeetChildren extends AppCompatActivity
                 popupWindow.dismiss();
             }
         });
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
+        popupView.setOnTouchListener((v, event) -> {
+            popupWindow.dismiss();
+            return true;
         });
     }
 }

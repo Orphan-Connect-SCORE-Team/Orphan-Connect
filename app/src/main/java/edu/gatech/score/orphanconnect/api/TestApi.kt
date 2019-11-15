@@ -1,5 +1,8 @@
 package edu.gatech.score.orphanconnect.api
 
+import edu.gatech.score.orphanconnect.database.domain.Orphan
+import edu.gatech.score.orphanconnect.web.responses.HTTPMessage
+import edu.gatech.score.orphanconnect.web.responses.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,10 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class TestApi {
 
 
-    public val api: Api?
-    final val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
-    var checkEmailRepeated : Boolean = false
-
+    val api: Api?
+    val BASE_URL = "http://score.us-east-1.elasticbeanstalk.com/"
+    var checkEmailRepeated: Boolean = false
 
 
     init {
