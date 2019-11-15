@@ -3,19 +3,16 @@ package edu.gatech.score.orphanconnect
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
-    private var inputEmail: EditText? = null
-    private var inputPassword: EditText? = null
     private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,14 +22,9 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
-        inputEmail = findViewById(R.id.input_email)
-        inputPassword = findViewById(R.id.input_password)
-
-        val buttonLogin = findViewById<Button>(R.id.button_login)
-
-        buttonLogin.setOnClickListener {
-            val email = inputEmail!!.text.toString()
-            val password = inputPassword!!.text.toString()
+        button_login.setOnClickListener {
+            val email = input_email.text.toString()
+            val password = input_password.text.toString()
 
             if (email == "" || password == "") run {
                 Toast.makeText(this@LoginActivity, "You need to input your email and password to login.", Toast.LENGTH_SHORT).show()
@@ -43,11 +35,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val buttonSignUp = findViewById<Button>(R.id.sign_up)
-
-
-        buttonSignUp.setOnClickListener {
-
+        sign_up.setOnClickListener {
             val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
             startActivity(intent)
             finish()
