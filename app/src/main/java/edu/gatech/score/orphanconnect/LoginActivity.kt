@@ -27,9 +27,9 @@ class LoginActivity : AppCompatActivity() {
 
         val buttonLogin = findViewById<Button>(R.id.button_login)
 
-        buttonLogin.setOnClickListener(View.OnClickListener {
-            val email = inputEmail!!.getText().toString()
-            val password = inputPassword!!.getText().toString()
+        buttonLogin.setOnClickListener {
+            val email = inputEmail!!.text.toString()
+            val password = inputPassword!!.text.toString()
 
             if (email == "" || password == "") run {
                 Toast.makeText(this@LoginActivity, "You need to input your email and password to login.", Toast.LENGTH_SHORT).show()
@@ -38,17 +38,17 @@ class LoginActivity : AppCompatActivity() {
             } else run {
                 this.userLogin(email, password)
             }
-        })
+        }
 
         val buttonSignUp = findViewById<Button>(R.id.sign_up)
 
 
-        buttonSignUp.setOnClickListener(View.OnClickListener {
+        buttonSignUp.setOnClickListener {
 
             val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
             startActivity(intent)
             finish()
-        })
+        }
     }
 
     private fun userLogin(email: String, password: String) {
@@ -56,34 +56,34 @@ class LoginActivity : AppCompatActivity() {
 
         try {
             val user = api.api!!.getUser(email)
-            System.out.println("Login began")
+            println("Login began")
 
             user.enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    System.out.println("Failure " + t.message)
+                    println("Failure " + t.message)
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
-                        System.out.println("Succeeded")
+                        println("Succeeded")
 
                         //TODO Implement the authentication here, check email, password, etc
                         //TODO Save user in SharedPreferences here
-                        System.out.println(response.body()!!.email)
-                        System.out.println(response.body()!!.password)
+                        println(response.body()!!.email)
+                        println(response.body()!!.password)
 
                         //Start main activity if login successful
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
-                        System.out.println("Unsuccessful")
-                        System.out.println(response.message())
+                        println("Unsuccessful")
+                        println(response.message())
                     }
                 }
             })
         } catch (e: Exception) {
-            System.out.println("Exception occurred: " + e.toString());
+            println("Exception occurred: $e");
         }
     }
 
