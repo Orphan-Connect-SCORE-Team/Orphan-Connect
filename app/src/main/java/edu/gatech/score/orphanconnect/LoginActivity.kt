@@ -7,20 +7,23 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import edu.gatech.score.orphanconnect.api.TestApi
-import edu.gatech.score.orphanconnect.web.responses.User
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.lifecycle.ViewModelProviders
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private var inputEmail: EditText? = null
     private var inputPassword: EditText? = null
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
 
         inputEmail = findViewById(R.id.input_email)
         inputPassword = findViewById(R.id.input_password)
@@ -52,38 +55,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun userLogin(email: String, password: String) {
-        val api = TestApi()
-
-        try {
-            val user = api.api!!.getUser(email)
-            println("Login began")
-
-            user.enqueue(object : Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    println("Failure " + t.message)
+        GlobalScope.launch {
+            if (viewModel.login(email, password)) {
+                withContext(Dispatchers.Main) {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
-
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        println("Succeeded")
-
-                        //TODO Implement the authentication here, check email, password, etc
-                        //TODO Save user in SharedPreferences here
-                        println(response.body()!!.email)
-                        println(response.body()!!.password)
-
-                        //Start main activity if login successful
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        println("Unsuccessful")
-                        println(response.message())
-                    }
-                }
-            })
-        } catch (e: Exception) {
-            println("Exception occurred: $e");
+            }
         }
     }
 

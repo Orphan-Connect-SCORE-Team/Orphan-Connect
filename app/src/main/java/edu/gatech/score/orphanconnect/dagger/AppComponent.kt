@@ -1,8 +1,9 @@
 package edu.gatech.score.orphanconnect.dagger
 
 import dagger.Component
+import edu.gatech.score.orphanconnect.LoginViewModel
 import edu.gatech.score.orphanconnect.application.ScoreApplication
-import edu.gatech.score.orphanconnect.database.OrphanViewModel
+import edu.gatech.score.orphanconnect.OrphanViewModel
 import javax.inject.Singleton
 
 @Singleton
@@ -22,4 +23,5 @@ interface AppComponent {
 
     // ViewModels
     fun inject(orphanViewModel: OrphanViewModel)
+    fun inject(orphanViewModel: LoginViewModel)
 }

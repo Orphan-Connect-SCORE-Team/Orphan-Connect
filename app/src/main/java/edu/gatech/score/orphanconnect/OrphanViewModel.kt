@@ -1,4 +1,4 @@
-package edu.gatech.score.orphanconnect.database
+package edu.gatech.score.orphanconnect
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

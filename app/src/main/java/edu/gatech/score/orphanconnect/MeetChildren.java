@@ -22,8 +22,6 @@ import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
-import edu.gatech.score.orphanconnect.database.OrphanViewModel;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -76,10 +74,10 @@ public class MeetChildren extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final OrphanListAdapter adapter = new OrphanListAdapter(this);
         recyclerView.setAdapter(adapter);
-        //Attempt to customize
+        // Attempt to customize
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //Additional Code not from original guide
+        // Additional Code not from original guide
         recyclerView.setLayoutManager(layoutManager);
 
         orphanViewModel.getAllOrphans().observe(this, adapter::setOrphans);

@@ -1,4 +1,4 @@
-package edu.gatech.score.orphanconnect.database
+package edu.gatech.score.orphanconnect
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import edu.gatech.score.orphanconnect.R
 import edu.gatech.score.orphanconnect.database.domain.Orphan
 import kotlinx.android.synthetic.main.orphan_item.view.*
 
