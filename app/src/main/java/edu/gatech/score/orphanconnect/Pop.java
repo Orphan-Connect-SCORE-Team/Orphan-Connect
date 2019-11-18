@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.braintreepayments.api.BraintreeFragment;
-import com.braintreepayments.api.exceptions.InvalidArgumentException;
-
 public class Pop extends Activity {
 
     @Override

@@ -1,4 +1,4 @@
-package edu.gatech.score.orphanconnect.api
+package edu.gatech.score.orphanconnect.web.responses
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

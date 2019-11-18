@@ -3,49 +3,29 @@ package edu.gatech.score.orphanconnect;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-
+import android.view.*;
+import android.view.animation.AnimationUtils;
+import android.widget.*;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.braintreepayments.api.dropin.DropInActivity;
 import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.Nullable;
-import com.nimbusds.jose.Header;
-
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import edu.gatech.score.orphanconnect.database.OrphanListAdapter;
-import edu.gatech.score.orphanconnect.database.OrphanViewModel;
-import edu.gatech.score.orphanconnect.database.domain.Orphan;
-
-import android.view.*;
-import android.view.animation.AnimationUtils;
-import android.widget.*;
-import com.loopj.android.http.*;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 
 public class MeetChildren extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,8 +37,6 @@ public class MeetChildren extends AppCompatActivity
     HashMap<String, String> paramHash;
     final String TEST_SERVER = "http://10.0.2.2:3000";
     String CLIENT_TOKEN = "sandbox_mfgm9rgj_b2rnychf57r462kj";
-
-    private OrphanViewModel orphanViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,56 +50,37 @@ public class MeetChildren extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//        ImageView boy = findViewById(R.id.boy);
-//        ImageView girl = findViewById(R.id.girl);
-
-//        girl.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onChildClicked(v);
-//            }
-//        });
-
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         BottomNavigationView buttonNavigationView = findViewById(R.id.navigation);
         buttonNavigationView.getMenu().setGroupCheckable(0, false, true);
-        buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navigation_home:
-                        startActivity(new Intent(MeetChildren.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                    case R.id.navigation_account:
-                        return true;
-                    case R.id.navigation_donation:
-                        startActivity(new Intent(MeetChildren.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                        return true;
-                    case R.id.navigation_map:
-                        return true;
-                }
-                return false;
+        buttonNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()) {
+                case R.id.navigation_home:
+                    startActivity(new Intent(MeetChildren.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                case R.id.navigation_account:
+                    return true;
+                case R.id.navigation_donation:
+                    startActivity(new Intent(MeetChildren.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                    return true;
+                case R.id.navigation_map:
+                    return true;
             }
+            return false;
         });
 
-        orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
+        OrphanViewModel orphanViewModel = ViewModelProviders.of(this).get(OrphanViewModel.class);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         final OrphanListAdapter adapter = new OrphanListAdapter(this);
         recyclerView.setAdapter(adapter);
-        //Attempt to customize
+        // Attempt to customize
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        //Additional Code not from original guide
+        // Additional Code not from original guide
         recyclerView.setLayoutManager(layoutManager);
 
-        orphanViewModel.getAllOrphans().observe(this, new Observer<List<Orphan>>() {
-            @Override
-            public void onChanged(@Nullable final List<Orphan> orphans) {
-                // Update the cached copy of the words in the adapter.
-                adapter.setOrphans(orphans);
-            }
-        });
+        orphanViewModel.getAllOrphans().observe(this, adapter::setOrphans);
     }
 
     @Override
@@ -220,8 +179,6 @@ public class MeetChildren extends AppCompatActivity
             }
         });
 
-
-
         popupView.findViewById(R.id.donate_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,19 +226,11 @@ public class MeetChildren extends AppCompatActivity
         // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         final View vi = view;
-        popupView.findViewById(R.id.confirm_ok).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onConfirmClicked(vi);
-                popupWindow.dismiss();
-            }
+        popupView.findViewById(R.id.confirm_ok).setOnClickListener(v -> {
+            onConfirmClicked(vi);
+            popupWindow.dismiss();
         });
-        popupView.findViewById(R.id.confirm_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.dismiss();
-            }
-        });
+        popupView.findViewById(R.id.confirm_cancel).setOnClickListener(v -> popupWindow.dismiss());
     }
 
     public void onConfirmClicked(View view) {
@@ -306,12 +255,9 @@ public class MeetChildren extends AppCompatActivity
                 popupWindow.dismiss();
             }
         });
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
+        popupView.setOnTouchListener((v, event) -> {
+            popupWindow.dismiss();
+            return true;
         });
     }
 }

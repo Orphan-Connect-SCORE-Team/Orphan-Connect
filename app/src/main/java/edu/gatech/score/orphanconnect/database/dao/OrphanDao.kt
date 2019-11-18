@@ -1,10 +1,7 @@
 package edu.gatech.score.orphanconnect.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import edu.gatech.score.orphanconnect.database.domain.Orphan
 
 @Dao
@@ -19,6 +16,15 @@ interface OrphanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsert(orphan: Orphan)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsertAll(orphans: List<Orphan>)
+
     @Query("DELETE FROM orphan")
     suspend fun deleteAll()
+
+    @Transaction
+    suspend fun replaceAll(orphans: List<Orphan>) {
+        deleteAll()
+        upsertAll(orphans)
+    }
 }

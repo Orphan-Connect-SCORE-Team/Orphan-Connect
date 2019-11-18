@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity
@@ -28,12 +26,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ImageView makeDonation = findViewById(R.id.make_donation);
-        makeDonation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MeetChildren.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-            }
-        });
+        makeDonation.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MeetChildren.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
-        }
+    }
 
     @Override
     public void onBackPressed() {

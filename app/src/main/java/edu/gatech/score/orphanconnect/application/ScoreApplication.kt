@@ -18,7 +18,9 @@ class ScoreApplication : Application() {
                 .builder()
                 .appModule(AppModule(application))
                 .databaseModule(DatabaseModule(application))
+                .networkModule(NetworkModule(application))
                 .repositoryModule(RepositoryModule())
+                .webserviceModule(WebserviceModule(application))
                 .build()
     }
 }
