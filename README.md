@@ -5,6 +5,21 @@ Orphan Connect is an Android application that allows for the secure donation of 
 
 ********************************************************************************
 
+## Release Notes
+
+### New Features
+- Improved appearance of RecyclerView List of Orphans
+- Added support for pictures in the profiles of orphans
+
+
+### Bug Fixes
+- 
+
+### Known Bugs/Defects
+- 
+
+********************************************************************************
+
 ## Installation Guide
 
 ### Pre-Requisites
@@ -27,15 +42,14 @@ The following dependencies are used in the project, but they will be automatical
 Orphan Connect is stored on Github, and should be downloaded as follows:
 - Navigate to the Terminal for Mac and Linux devices, or the CMD for Windows.
 - Navigate to the directory that you wish to install the application to
-- Enter the following command:
-`git clone https://github.com/Orphan-Connect-SCORE-Team/Orphan-Connect`
-Once installed, open Android Studio. Navigate to File > Open and select the project folder containing the cloned repository.
+- Enter the following command: `git clone https://github.com/Orphan-Connect-SCORE-Team/Orphan-Connect`
+- Once installed, open Android Studio. Navigate to File → Open and select the project folder containing the cloned repository.
 
 If you do not want to work off of our repository, you can also download the project as a zip file from [https://github.com/Orphan-Connect-SCORE-Team/Orphan-Connect/archive/master.zip](https://github.com/Orphan-Connect-SCORE-Team/Orphan-Connect/archive/master.zip).
 
 
 ### Build Instructions
-Before anything else, we strongly recommend cleaning the project to prevent build errors from occurring. In Android Studio, navigate to Build > Clean Project to ensure that local file paths are not saved.
+Before anything else, we strongly recommend cleaning the project to prevent build errors from occurring. In Android Studio, navigate to Build → Clean Project to ensure that local file paths are not saved.
 
 __Build and Run for Testing__
 1. Navigate to the green play button at the top of the screen to run the program on the selected device.
@@ -63,18 +77,3 @@ __Android 7.x and lower__
 
 ### Run Instructions
 Open the app by clicking on the app icon. Running the software on the device will depend on your Android device version. If you have a problem with running the app due to the Android version, see the installation step to make sure it was installed correctly.
-
-********************************************************************************
-
-## Release Notes
-
-### New Features
-- Improved appearance of RecyclerView List of Orphans
-- Added support for pictures in the profiles of orphans
-
-
-### Bug Fixes
--
-
-### Known Bugs/Defects
--
