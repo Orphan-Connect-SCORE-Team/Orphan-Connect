@@ -16,7 +16,7 @@ Orphan Connect is an Android application that allows for the secure donation of 
 - 
 
 ### Known Bugs/Defects
-- 
+- App is currently lacking an appropriate icon
 
 ********************************************************************************
 
