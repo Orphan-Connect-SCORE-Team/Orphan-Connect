@@ -49,4 +49,10 @@ interface Api {
             @Query("id") id: Int,
             @Query("type") type: String
     ): Call<HTTPMessage>
+
+    @POST("/api/users/UpdateUserP.php")
+    fun updatePassword(
+            @Query("email") email: String,
+            @Query("password") password: String
+    ): Call<HTTPMessage>
 }
