@@ -16,6 +16,9 @@ interface Api {
     @GET("/api/orphans/Random.php")
     fun getOrphansRandom(@Query("number") number: Int): Call<List<Orphan>>
 
+    @GET("/braintree/AnotherAccess.php")
+    fun anotherAccess(): Call<HTTPMessage>
+
     @POST("/api/users/GetUsers.php")
     fun getUsers(): Call<List<User>>
 
@@ -48,5 +51,11 @@ interface Api {
             @Query("link") link: String,
             @Query("id") id: Int,
             @Query("type") type: String
+    ): Call<HTTPMessage>
+
+    @POST("/api/users/UpdateUserP.php")
+    fun updatePassword(
+            @Query("email") email: String,
+            @Query("password") password: String
     ): Call<HTTPMessage>
 }
