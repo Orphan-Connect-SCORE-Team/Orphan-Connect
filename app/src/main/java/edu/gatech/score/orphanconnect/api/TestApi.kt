@@ -231,4 +231,30 @@ class TestApi {
 
         return null
     }
+
+    fun anotherAccess(): HTTPMessage? {
+        try {
+            val query = api!!.anotherAccess()
+            println("Obtaining...")
+            query.enqueue(object : Callback<HTTPMessage> {
+                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
+                    println("Failure from anotherAccess" + t.message)
+                }
+
+                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
+                    if (response.isSuccessful) {
+                        println("Succeeded from anotherAccess")
+                        println(response.body()!!.message)
+                    } else {
+                        println("Unsuccessful, but received response from anotherAccess")
+                        println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            println("Exception occurred: $e")
+        }
+
+        return null
+    }
 }

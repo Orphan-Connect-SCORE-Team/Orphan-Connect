@@ -16,6 +16,9 @@ interface Api {
     @GET("/api/orphans/Random.php")
     fun getOrphansRandom(@Query("number") number: Int): Call<List<Orphan>>
 
+    @GET("/braintree/AnotherAccess.php")
+    fun anotherAccess(): Call<HTTPMessage>
+
     @POST("/api/users/GetUsers.php")
     fun getUsers(): Call<List<User>>
 
