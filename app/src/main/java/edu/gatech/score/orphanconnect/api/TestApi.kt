@@ -205,4 +205,30 @@ class TestApi {
 
         return retVal
     }
+
+    fun updatePassword(email: String, password: String): HTTPMessage? {
+        try {
+            val query = api!!.updatePassword(email, password)
+            println("Orphan Creation Began")
+            query.enqueue(object : Callback<HTTPMessage> {
+                override fun onFailure(call: Call<HTTPMessage>, t: Throwable) {
+                    println("Failure from updatePassword" + t.message)
+                }
+
+                override fun onResponse(call: Call<HTTPMessage>, response: Response<HTTPMessage>) {
+                    if (response.isSuccessful) {
+                        println("Succeeded from update password")
+                        println(response.body()!!.message)
+                    } else {
+                        println("Unsuccessful, but received response from updatePassword")
+                        println(response.message())
+                    }
+                }
+            })
+        } catch (e: Exception) {
+            println("Exception occurred: $e")
+        }
+
+        return null
+    }
 }
