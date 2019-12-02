@@ -8,10 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import edu.gatech.score.orphanconnect.database.domain.Orphan
+import edu.gatech.score.orphanconnect.utils.GlideApp
 import kotlinx.android.synthetic.main.orphan_item.view.*
 
 class OrphanListAdapter internal constructor(
-        context: Context
+        val context: Context
 ): RecyclerView.Adapter<OrphanListAdapter.OrphanViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var orphans = emptyList<Orphan>()
@@ -54,7 +55,19 @@ class OrphanListAdapter internal constructor(
             holder.description.visibility = View.VISIBLE
         }
 
-        // TODO: use Glide to set profile photo here
+        // Use Glide to set profile photo here
+        if (!orphan.photoUrl.isNullOrEmpty()) {
+            GlideApp.with(context)
+                    .load(orphan.photoUrl)
+                    .placeholder(R.drawable.profile_photo_placeholder)
+                    .centerCrop()
+                    .into(holder.profilePhoto)
+        } else {
+            GlideApp.with(context)
+                    .load(R.drawable.profile_photo_placeholder)
+                    .centerCrop()
+                    .into(holder.profilePhoto)
+        }
     }
 
     private fun getRefugeeCampAndVillage(refugeeCamp: String?, village: String?): String? =

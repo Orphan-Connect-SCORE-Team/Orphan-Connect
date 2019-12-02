@@ -54,10 +54,10 @@ abstract class ScoreDatabase : RoomDatabase() {
             OrphanDao.deleteAll()
 
             // Add sample orphans
-            OrphanDao.upsert(Orphan("1", "Maddie", "Wiggins",22, "female"))
+            OrphanDao.upsert(Orphan("1", "Maddie", "Wiggins",22, "female", photoUrl = "https://media.defense.gov/2012/Dec/22/2000087069/780/780/0/121222-F-HJ547-371.JPG"))
             OrphanDao.upsert(Orphan("2", "Joe", "Chen",23, "male", description = "I love soccer!", refugeeCamp = "Southern Refugee Camp", village = "Southern Village"))
             OrphanDao.upsert(Orphan("3", "Dylan", "Reese",20, "male", refugeeCamp = "Western Refugee Camp"))
-            OrphanDao.upsert(Orphan("4", "Amaan", "Marfatia",20, "male", description = "I like basketball!", village = "Southern Village"))
+            OrphanDao.upsert(Orphan("4", "Jessica", "Daniels",20, "female", description = "I like basketball!", village = "Southern Village", photoUrl = "https://cdn.pixabay.com/photo/2015/06/26/16/29/person-822681_960_720.jpg"))
             OrphanDao.upsert(Orphan("5", "Jiajie", "Lin",21, "male", description = "I like video games!"))
             OrphanDao.upsert(Orphan("6", "Joshua", "Mellott",23, "male", refugeeCamp = "Western Refugee Camp"))
         }
