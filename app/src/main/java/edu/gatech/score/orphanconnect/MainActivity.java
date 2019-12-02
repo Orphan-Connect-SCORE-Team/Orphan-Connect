@@ -2,9 +2,12 @@ package edu.gatech.score.orphanconnect;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         ImageView makeDonation = findViewById(R.id.make_donation);
+        TextView intrduction = findViewById(R.id.missionDescription);
+        intrduction.setMovementMethod(new ScrollingMovementMethod());
         makeDonation.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, MeetChildren.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)));
 
         Toolbar toolbar = findViewById(R.id.toolbar);
