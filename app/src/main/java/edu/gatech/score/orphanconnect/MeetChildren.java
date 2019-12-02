@@ -22,10 +22,18 @@ import com.braintreepayments.api.dropin.DropInRequest;
 import com.braintreepayments.api.dropin.DropInResult;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
+
+import edu.gatech.score.orphanconnect.api.Api;
+import edu.gatech.score.orphanconnect.api.TestApi;
 
 public class MeetChildren extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -188,10 +196,8 @@ public class MeetChildren extends AppCompatActivity
     }
 
     public void onBraintreeSubmit(View v) {
-        System.out.println("donate pressed");
         DropInRequest dropInRequest = new DropInRequest().clientToken(CLIENT_TOKEN);
         startActivityForResult(dropInRequest.getIntent(this), REQUEST_CODE);
-        System.out.println("anything?");
     }
 
     @Override
@@ -201,6 +207,7 @@ public class MeetChildren extends AppCompatActivity
             if (resultCode == Activity.RESULT_OK) {
                 DropInResult result = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
                 //update UI and send payment info to server
+                postNonceToServer("fake-valid-nonce");
             } else if (resultCode == RESULT_CANCELED) {
                 //user canceled here
             } else {
@@ -208,6 +215,12 @@ public class MeetChildren extends AppCompatActivity
                 Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
             }
         }
+    }
+
+    void postNonceToServer(String nonce) {
+        System.out.println("posted?");
+        TestApi api = new TestApi();
+        api.anotherAccess();
     }
 
     public void onDonateClicked(View view) {
