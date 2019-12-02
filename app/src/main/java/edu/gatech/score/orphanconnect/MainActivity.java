@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
         BottomNavigationView buttonNavigationView = findViewById(R.id.navigation);
         buttonNavigationView.setSelectedItemId(R.id.navigation_home);
         buttonNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,6 +46,7 @@ public class MainActivity extends AppCompatActivity
                     case R.id.navigation_home:
                         return true;
                     case R.id.navigation_account:
+                        startActivity(new Intent(MainActivity.this, ResetPasswordActivity.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
                         return true;
                     case R.id.navigation_donation:
                         startActivity(new Intent(MainActivity.this, My_Donation.class).addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
@@ -70,7 +69,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
