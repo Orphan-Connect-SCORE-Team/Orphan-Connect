@@ -208,8 +208,11 @@ public class MeetChildren extends AppCompatActivity
                 DropInResult result = data.getParcelableExtra(DropInResult.EXTRA_DROP_IN_RESULT);
                 //update UI and send payment info to server
                 postNonceToServer("fake-valid-nonce");
+                //startActivity(new Intent(this, MainActivity.class));
             } else if (resultCode == RESULT_CANCELED) {
                 //user canceled here
+                startActivity(new Intent(this, MainActivity.class));
+
             } else {
                 //error handling, may be an exception
                 Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
