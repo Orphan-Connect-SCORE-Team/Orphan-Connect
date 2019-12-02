@@ -16,6 +16,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".SignUpActivity"></activity>
         <activity android:name=".ForgetPassword"></activity>
+        <activity android:name=".ResetPasswordActivity"></activity>
         <activity
             android:name=".My_Donation"
             android:label="My Donation"
